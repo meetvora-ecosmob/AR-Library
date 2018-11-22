@@ -13,7 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-package com.google.devrel.ar.codelab
+package com.myarlib
 
 import android.content.Intent
 import android.net.Uri
@@ -53,7 +53,7 @@ class MyModelPreviewActivity : AppCompatActivity() {
         maybeEnableArButton()
 
         scene = sceneView.scene // get current scene
-        renderObjectFromWeb(MyArCameraActivity.GLTF_ASSET)
+        renderObjectFromWeb("https://github.com/KhronosGroup/glTF-Sample-Models/raw/master/2.0/Duck/glTF/Duck.gltf")
 
         scene.setOnTouchListener(Scene.OnTouchListener { hitTestResult, motionEvent ->
             transformationSystem.onTouch(hitTestResult, motionEvent)
@@ -94,7 +94,7 @@ class MyModelPreviewActivity : AppCompatActivity() {
                         .setScale(0.25f)
                         .setRecenterMode(RenderableSource.RecenterMode.ROOT)
                         .build())
-                .setRegistryId(MyArCameraActivity.GLTF_ASSET)
+                .setRegistryId("https://github.com/KhronosGroup/glTF-Sample-Models/raw/master/2.0/Duck/glTF/Duck.gltf")
                 .build()
                 .thenAccept { renderable ->
                     addNodeToScene(renderable)
