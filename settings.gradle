@@ -1,1 +1,1 @@
-include ':library', ':app'
+include ':ar_library', ':app'
