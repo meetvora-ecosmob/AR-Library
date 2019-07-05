@@ -18,6 +18,7 @@ package ecosmob.myarlib;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -46,6 +47,8 @@ public class MyArCameraActivity extends AppCompatActivity {
     private ModelRenderable myRenderable;
     private ProgressDialog loadingProgressDialog;
 
+    // Check device capability for AR-Core library support and its availability on the device
+    // [Source: https://stackoverflow.com/a/51684172/5373110]
     static void maybeEnableArButton(Context context, IsArSupported isArSupported) {
         ArCoreApk.Availability availability = ArCoreApk.getInstance().checkAvailability(context);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -96,7 +99,7 @@ public class MyArCameraActivity extends AppCompatActivity {
                         this,
                         Uri.parse(Builder.networkResourceUri),
                         RenderableSource.SourceType.GLTF2)
-                        .setScale(0.25f)
+                        .setScale(0.25f)    // initial scale value
                         .setRecenterMode(RenderableSource.RecenterMode.ROOT)
                         .build())
                 .setRegistryId(Builder.networkResourceUri)
@@ -112,6 +115,13 @@ public class MyArCameraActivity extends AppCompatActivity {
                             new AlertDialog.Builder(this)
                                     .setTitle("Error!")
                                     .setMessage("We are unable to load 3D Model.\n\nError: " + throwable.getMessage())
+                                    .setCancelable(false)
+                                    .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            finish();
+                                        }
+                                    })
                                     .show();
                             return null;
                         });

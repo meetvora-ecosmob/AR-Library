@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         MyArCameraActivity.doesDeviceSupportAR(MainActivity.this, new MyArCameraActivity.IsArSupported() {
             @Override
             public void isArSupported(boolean isSupported) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && isSupported) {
+                if (isSupported) {
                     new MyArCameraActivity.Builder(MainActivity.this)
                             .setNetworkResource(objectURL)
                             .launchArCameraActivity();
